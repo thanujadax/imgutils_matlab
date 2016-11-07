@@ -11,6 +11,7 @@ function convertProbMaps2IndexImg(inputDir,outputDir,inputFmt,thresh)
 inputFileList = dir(fullfile(inputDir,strcat('*.',inputFmt)));
 for i=1:length(inputFileList)
     imIn = double(imread(fullfile(inputDir,inputFileList(i).name),inputFmt));
+    imIn = imIn./max(max(imIn));
     imIn = im2bw(imIn,thresh);
     indIm = convertBW2IndexImage(imIn);
     
