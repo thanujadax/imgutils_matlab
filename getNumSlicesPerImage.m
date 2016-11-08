@@ -1,16 +1,17 @@
 function slicesPerImage = getNumSlicesPerImage(inputDir,startInd,endInd,imType)
 
-fileList = dir(fullfile(inputdir,strcat('*.',imType)));
+fileList = dir(fullfile(inputDir,strcat('*.',imType)));
 
 numFiles = length(fileList);
 
-slicesPerImage = zeros(numFiles,1);
-
+slicesPerImage = zeros(numel(startInd:endInd),1);
+k = 0;
 for i=startInd:endInd
     fileName = fullfile(inputDir,fileList(i).name);
     imIn = double(imread(fileName));
     imIn = im2bw(imIn,0);
     cc = bwconncomp(imIn);
-    slicesPerImage(i) = length(cc.PixelIdxList);
+    k = k+1;
+    slicesPerImage(k) = length(cc.PixelIdxList);
 end
 
